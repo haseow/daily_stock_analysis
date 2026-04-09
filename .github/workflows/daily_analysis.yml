@@ -3,7 +3,8 @@ name: 每日股票分析
 on:
   # 定时触发 - 每天北京时间 18:00 (UTC 10:00)
   schedule:
-    - cron: '0 10 * * 1-5'     # 周一到周五，UTC 10:00 = 北京时间 18:00
+    - cron: '00 1 * * 1-5'     # 周一到周五，UTC 10:00 = 北京时间 18:00
+    - cron: '30 3 * * 1-5'
   
   # 手动触发
   workflow_dispatch:
@@ -22,6 +23,10 @@ on:
         required: false
         default: false
         type: boolean
+  
+  repository_dispatch:        # 新增：飞书指令触发
+    types:
+      - analyze_stock         # 触发事件名，和飞书配置对应
 
 # 并发控制：同一时间只运行一个分析任务
 concurrency:
